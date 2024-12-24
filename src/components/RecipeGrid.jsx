@@ -16,12 +16,26 @@ const RecipeGrid = ({ recipes, loading, showFavorites, favorites, onFavoriteTogg
   
   if(recipes.length === 0){
     return (
-      <div></div>
+      <div>
+        {showFavorites ? (
+          <div>
+            <BookmarkCheck size={45} className='mx-auto mb-4' />
+            <p className='text-xl'>No favorite recipes found</p>
+            <p className='mt-2'>Save your favorite recipes by clicking heart icon</p>
+          </div>
+        ) : (
+          <div>
+            <ChefHat size={45} className='mx-auto mb-4' />
+            <p className='text-xl'>No recipes found</p>
+            <p className='mt-2'>Try adjusting your search</p>
+          </div>
+        )}
+      </div>
     )
   }
 
   return (
-    <div>
+    <div className='grid grid-cols-1 md:grid-cols2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
       {recipes.map((recipe) => (
         <RecipeCard 
         key={recipe.id}

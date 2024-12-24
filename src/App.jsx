@@ -34,6 +34,7 @@ function App() {
 
       try {
         const data = await recipeApi.searchRecipes(debouncedSearchTerm, filters);
+        console.log(data)
         setRecipes(data.results);
       } catch(error){
         setError(error.message);
@@ -65,26 +66,34 @@ function App() {
   return (
     <div>
       <Header showFavorites={showFavorites} setShowFavorites={setShowFavorites}/>
-      <SearchBar 
-      searchTerm={searchTerm}
-      setSearchTerm={setSearchTerm}
-      showFilters={showFilters}
-      setShowFilters={setShowFilters}
-      />
-
-      {showFilters && (
-        <Filters filters={filters} setFilters={setFilters}/>
-      )}
-
-      <RecipeGrid 
-      recipes={showFavorites ? favorites : recipes}
-      loading={loading}
-      showFavorites={showFavorites}
-      favorites={favorites}
-      onFavoriteToggle={handleFavoriteToggle}
-      onViewDetails={handleViewDetails}
-      />
       
+      <main>
+        <SearchBar 
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        showFilters={showFilters}
+        setShowFilters={setShowFilters}
+        />
+
+        {showFilters && (
+          <Filters filters={filters} setFilters={setFilters}/>
+        )}
+
+        {error && (
+          <div className='bg-red-500 text-white px-4 py-3 rounded-lg mb-6'>
+            {error}
+          </div>
+        )}
+
+        <RecipeGrid 
+        recipes={showFavorites ? favorites : recipes}
+        loading={loading}
+        showFavorites={showFavorites}
+        favorites={favorites}
+        onFavoriteToggle={handleFavoriteToggle}
+        onViewDetails={handleViewDetails}
+        />
+      </main>
     </div>
   )
 }
